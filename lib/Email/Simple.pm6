@@ -25,11 +25,11 @@ grammar Message {
 
 method new (Str $text) {
     my $parsed = Message.parse($text);
-    my $header_object = Email::Simple::Header.new($parsed<headers>, crlf => $parsed<newline>);
-    self.bless(*, body => $parsed<body>, header => $header_object, crlf => $parsed<newline>);
+    my $header-object = Email::Simple::Header.new($parsed<headers>, crlf => $parsed<newline>);
+    self.bless(*, body => $parsed<body>, header => $header-object, crlf => $parsed<newline>);
 }
 
-method create () {
+method create (:$header, :$body) {
     die "Stub!";
 }
 
@@ -57,7 +57,7 @@ method body-set ($text) {
     $!body = $text;
 }
 
-method as-string() {
+method as-string {
     return $!header.as-string ~ $!crlf ~ $!body;
 }
 method Str { self.as-string; }
