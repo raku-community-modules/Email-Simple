@@ -7,26 +7,26 @@ has $!header;
 has $!crlf;
 
 grammar Message {
-  token TOP {
+  regex TOP {
     <headers>
     <newline>
     <body>
   }
   token newline {
-    "\n" | "\r" | "\r\n" | "\n\r"
+    \n | \r | \r\n | \n\r
   }
   token body {
     .*
   }
-  token headers {
-    .* <newline>
+  regex headers {
+    .*? <newline>
   }
 }
 
 method new (Str $text) {
     my $parsed = Message.parse($text);
-    my $header-object = Email::Simple::Header.new($parsed<headers>, crlf => $parsed<newline>);
-    self.bless(*, body => $parsed<body>, header => $header-object, crlf => $parsed<newline>);
+    my $header-object = Email::Simple::Header.new(~$parsed<headers>, crlf => ~$parsed<newline>);
+    self.bless(*, body => $parsed<body>, header => $header-object, crlf => ~$parsed<newline>);
 }
 
 method create (:$header, :$body) {

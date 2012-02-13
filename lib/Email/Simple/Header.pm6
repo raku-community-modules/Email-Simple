@@ -4,30 +4,34 @@ has $!crlf;
 has @!headers;
 
 grammar Headers {
-    token TOP {
-	<name>: \s* <value> <newline>
+    regex TOP {
+	<entry>+
+    }
+    regex entry {
+	<name>\: \s* <value> <newline>
     }
     token name {
-	[^: ]*
+	<-[: ]>*
     }
-    token value {
-	[^<newline>]*
-	( <newline> \s+ [^:] [^<newline>]* ) *
+    regex value {
+	\N*
+	(<newline> \s+ \N*)?
     }
     token newline {
-	"\n" | "\r" | "\r\n" | "\n\r"
+	\n | \r | \r\n | \n\r
     }
 }
 
 method new ($header-text, :$crlf = "\r\n") {
-
     my $parsed = Headers.parse($header-text);
+    my @entries = $parsed<entry>;
     my @headers;
-    for 1..+@parsed<name> {
-	my $name = @parsed<name>[$_];
-	my $value = @parsed<value>[$_];
-	$value ~~ s/\s*$crlf\s*/ /g;
-	push(@headers, [$name, $value]);
+    for @entries {
+	my $name = $_<name>;
+	my $value = $_<value>;
+	$value = $value.Str;
+	$value ~~ s:g/\s* $crlf \s*/ /;
+	push(@headers, [~$name, $value]);
     }
 
     self.bless(*, crlf => $crlf, headers => @headers);
@@ -48,11 +52,17 @@ method as-string {
 method Str { self.as-string }
 
 method header-names {
-    
+    my @names = gather {
+	for @!headers {
+	    take $_[0];
+	}
+    }
+
+    return @names;
 }
 
 method header-pairs {
-
+    return @!headers;
 }
 
 method header ($name) {

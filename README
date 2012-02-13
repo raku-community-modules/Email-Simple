@@ -1,3 +1,19 @@
 This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just because I can)
 
-It is currently in a non-functional state.
+It will currently parse some simple emails, at least, although there are unimplemented functions.
+
+DIFFERENCES FROM PERL 5'S EMAIL::SIMPLE
+---------------------------------------
+I've tried to keep the api the same, with one exception:
+$mail.header-pairs now returns an array of arrays instead of a flat array.
+
+TODO
+----
+* write more tests
+* implement the following functions:
+** Email::Simple
+*** create
+** Email::Simple::Header
+*** header
+*** header-set
+* Allow for user to specify their own header class
