@@ -65,19 +65,54 @@ method header-pairs {
     return @!headers;
 }
 
-method header ($name) {
+method header (Str $name) {
+    my @values = gather {
+	for @!headers {
+	    if lc($_[0]) eq lc($name) {
+		take $_[1];
+	    }
+	}
+    }
 
+    return @values but @values[0];
 }
 
-method header-set (:$field) {
+method header-set ($field, *@values) {
+    my @indices;
+    my $x = 0;
+    for @!headers {
+	if lc($_[0]) eq lc($field) {
+	    push(@indices, $x);
+	}
+	$x++;
+    }
 
+    if +@indices > +@values {
+	my $overage = +@indices - +@values;
+	for 1..$overage {
+	    @!headers.splice(@indices[*-1],1);
+	    @indices.pop();
+	}
+    } elsif +@values > +@indices {
+	my $underage = +@values - +@indices;
+	for 1..$underage {
+	    @!headers.push([$field, '']);
+	    @indices.push(+@!headers-1);
+	}
+    }
+
+    for 0..(+@indices - 1) {
+	@!headers[@indices[$_]] = [$field, @values[$_]];
+    }
+
+    return @values but @values[0];
 }
 
 method crlf {
     return $!crlf;
 }
 
-method !fold ($line) {
+method !fold (Str $line) {
     my $limit = self!default-fold-at - 1;
     
     if $line.chars <= $limit {

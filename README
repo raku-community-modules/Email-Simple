@@ -13,7 +13,4 @@ TODO
 * implement the following functions:
 ** Email::Simple
 *** create
-** Email::Simple::Header
-*** header
-*** header-set
 * Allow for user to specify their own header class

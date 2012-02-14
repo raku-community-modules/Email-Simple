@@ -44,7 +44,7 @@ method header-obj-set ($obj) {
 }
 
 method header ($name) { $!header.header($name); }
-method header-set ($name, @lines) { $!header.header-set($name, |@lines); }
+method header-set ($name, *@lines) { $!header.header-set($name, |@lines); }
 method header-names { $!header.header-names; }
 method headers { self.header-names; }
 method header-pairs { $!header.header-pairs; }
