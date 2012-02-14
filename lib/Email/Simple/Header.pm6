@@ -64,6 +64,10 @@ method as-string {
 }
 method Str { self.as-string }
 
+class HeaderResponse is Array {
+    method Str { self[0] }
+}
+
 method header-names {
     my @names = gather {
 	for @!headers {
@@ -87,7 +91,7 @@ method header (Str $name) {
 	}
     }
 
-    return @values but @values[0];
+    return HeaderResponse.new(@values);
 }
 
 method header-set ($field, *@values) {
@@ -118,7 +122,7 @@ method header-set ($field, *@values) {
 	@!headers[@indices[$_]] = [$field, @values[$_]];
     }
 
-    return @values but @values[0];
+    return HeaderResponse.new(@values);
 }
 
 method crlf {
