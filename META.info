@@ -1,0 +1,7 @@
+{
+    "name"	  : "Email::Simple",
+    "version"	  : "*",
+    "description" : "Simple email parsing module",
+    "depends"	  : [],
+    "source-url"  : "git://github.com/retupmoca/p6-Email-Simple.git"
+}
