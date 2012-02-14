@@ -23,14 +23,19 @@ grammar Message {
   }
 }
 
-method new (Str $text) {
+multi method new (Str $text) {
     my $parsed = Message.parse($text);
     my $header-object = Email::Simple::Header.new(~$parsed<headers>, crlf => ~$parsed<newline>);
     self.bless(*, body => $parsed<body>, header => $header-object, crlf => ~$parsed<newline>);
 }
 
-method create (:$header, :$body) {
-    die "Stub!";
+multi method new (Array $header, Str $body) {
+    self.create(header => $header, body => $body);
+}
+
+method create (Array :$header, Str :$body) {
+    my $header-object = Email::Simple::Header.new($header, crlf => "\r\n");
+    self.bless(*, body => $body, header => $header-object, crlf => "\r\n");
 }
 
 submethod BUILD (:$!body, :$!header, :$!crlf) { }
