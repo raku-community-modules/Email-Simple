@@ -18,7 +18,7 @@ grammar Headers {
 	(<newline> \s+ \N*)?
     }
     token newline {
-	\n | \r | \r\n | \n\r
+	\x0a | \x0d | \x0a\x0d | \x0d\x0a
     }
 }
 
