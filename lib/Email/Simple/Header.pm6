@@ -3,25 +3,6 @@ class Email::Simple::Header;
 has $!crlf;
 has @!headers;
 
-grammar Headers {
-    regex TOP {
-	<entry>+
-    }
-    regex entry {
-	<name>\: \s* <value> <newline>
-    }
-    token name {
-	<-[: ]>*
-    }
-    regex value {
-	\N*
-	(<newline> \s+ \N*)?
-    }
-    token newline {
-	\x0a | \x0d | \x0a\x0d | \x0d\x0a
-    }
-}
-
 multi method new (Array @headers, Str :$crlf = "\r\n") {
     if @headers[0] ~~ Array {
 	self.bless(*, crlf => $crlf, headers => @headers);
@@ -36,6 +17,29 @@ multi method new (Array @headers, Str :$crlf = "\r\n") {
 }
 
 multi method new (Str $header-text, Str :$crlf = "\r\n") {
+    #define this grammar here
+    #because we need $crlf
+    # (and I don't know if it's possible to pass parameters
+    #  through Headers.parse())
+    grammar Headers {
+	regex TOP {
+	    <entry>+
+	}
+	regex entry {
+	    <name>\: \s* <value> <newline>
+	}
+	token name {
+	    <-[: ]>*
+	}
+	regex value {
+	    \N*
+	    [<newline> \s+ \N+?]?
+	}
+	token newline {
+	    $crlf
+	}
+    }
+
     my $parsed = Headers.parse($header-text);
     my @entries = $parsed<entry>;
     my @headers;
@@ -91,7 +95,11 @@ method header (Str $name) {
 	}
     }
 
-    return HeaderResponse.new(@values);
+    if +@values {
+	return HeaderResponse.new(@values);
+    } else {
+	return Nil;
+    }
 }
 
 method header-set ($field, *@values) {
@@ -122,7 +130,11 @@ method header-set ($field, *@values) {
 	@!headers[@indices[$_]] = [$field, @values[$_]];
     }
 
-    return HeaderResponse.new(@values);
+    if +@values {
+	return HeaderResponse.new(@values);
+    } else {
+	return Nil;
+    }
 }
 
 method crlf {

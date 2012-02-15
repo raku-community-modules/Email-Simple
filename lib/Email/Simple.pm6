@@ -9,24 +9,28 @@ has $!crlf;
 grammar Message {
   regex TOP {
     <headers>
-    <newline>
+    <header-separate>
     <body>
   }
-  token newline {
-      \x0a | \x0d | \x0a\x0d | \x0d\x0a
+  token header-separate {
+      [\x0a\x0d] ** 2 | [\x0d\x0a] ** 2 | \x0a ** 2 | \x0d ** 2
   }
   token body {
     .*
   }
   regex headers {
-    .*? <newline>
+    .*?
   }
 }
 
 multi method new (Str $text) {
     my $parsed = Message.parse($text);
-    my $header-object = Email::Simple::Header.new(~$parsed<headers>, crlf => ~$parsed<newline>);
-    self.bless(*, body => $parsed<body>, header => $header-object, crlf => ~$parsed<newline>);
+    my $newlines = ~$parsed<header-separate>;
+    my $crlf = $newlines.substr(0, ($newlines.chars / 2));
+    my $headers = ~$parsed<headers>;
+    $headers ~= $crlf;
+    my $header-object = Email::Simple::Header.new($headers, crlf => $crlf);
+    self.bless(*, body => $parsed<body>, header => $header-object, crlf => $crlf);
 }
 
 multi method new (Array $header, Str $body) {
