@@ -41,7 +41,7 @@ multi method new (Str $header-text, Str :$crlf = "\r\n") {
     }
 
     my $parsed = Headers.parse($header-text);
-    my @entries = $parsed<entry>;
+    my @entries = $parsed<entry>.list;
     my @headers;
     for @entries {
 	my $name = $_<name>;
@@ -68,8 +68,18 @@ method as-string {
 }
 method Str { self.as-string }
 
-class HeaderResponse is Array {
-    method Str { self[0] }
+# array that returns its first value in string context
+class HeaderResponse is Positional {
+    has @.values;
+
+    method new(@values) {
+	self.bless(*, :@values);
+    }
+
+    method get_at($k) { @.values.get_at($k) }
+    method list() { @.values.list }
+
+    method Str { @.values[0] }
 }
 
 method header-names {
