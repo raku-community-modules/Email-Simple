@@ -11,5 +11,4 @@ TODO
 ----
 * write more tests
 * write (more) documentation/comments
-* Email::Simple.create doesn't automatically create a Date header yet
 * Allow for user to specify their own header class

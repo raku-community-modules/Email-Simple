@@ -1,6 +1,7 @@
 class Email::Simple;
 
 use Email::Simple::Header;
+use DateTime::Utils;
 
 has $!body;
 has $!header;
@@ -39,6 +40,9 @@ multi method new (Array $header, Str $body) {
 
 method create (Array :$header, Str :$body) {
     my $header-object = Email::Simple::Header.new($header, crlf => "\r\n");
+    if !($header-object.header('Date')) {
+        $header-object.header-set('Date', rfc2822());
+    }
     self.bless(*, body => $body, header => $header-object, crlf => "\r\n");
 }
 

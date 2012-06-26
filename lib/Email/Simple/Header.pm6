@@ -3,13 +3,13 @@ class Email::Simple::Header;
 has $!crlf;
 has @!headers;
 
-multi method new (Array @headers, Str :$crlf = "\r\n") {
-    if @headers[0] ~~ Array {
-	self.bless(*, crlf => $crlf, headers => @headers);
+multi method new (Array $headers, Str :$crlf = "\r\n") {
+    if $headers[0] ~~ Array {
+	self.bless(*, crlf => $crlf, headers => $headers);
     } else {
 	my @folded-headers;
-	loop (my $x=0;$x < +@headers;$x+=2) {
-	    @folded-headers.push([@headers[$x], @headers[$x+1]]);
+	loop (my $x=0;$x < +$headers;$x+=2) {
+	    @folded-headers.push([$headers[$x], $headers[$x+1]]);
 	}
 	
 	self.bless(*, crlf => $crlf, headers => @folded-headers);
