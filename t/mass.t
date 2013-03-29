@@ -5,7 +5,7 @@ use lib 'lib';
 
 use Email::Simple;
 
-plan 12;
+plan 16;
 
 my %headers = (
     badly-folded    => {
@@ -23,7 +23,11 @@ my %headers = (
         Header-One      => 'steve biko',
         Header-Two      => 'stir it up',
     },
-
+    long-msgid      => {
+        Content-Type    => qq[text/plain; charset="iso-8859-1"],
+        Message-ID      => '<LYRIS-7842440-223299-2004.05.28-16.02.21--jwb#paravolve.net@ls.encompassus.org>',
+        List-Unsubscribe    => '<mailto:leave-encompass_points-7842440G@ls.encompassus.org>',
+    },
 );
 
 for %headers.keys.sort -> $file {
