@@ -27,9 +27,10 @@ multi method new (Str $header-text, Str :$crlf = "\r\n") {
 	}
 	regex entry {
 	    <name>\: \s* <value> <newline>
+	    || <junk> <newline>
 	}
 	token name {
-	    <-[: ]>*
+	    <-[:\s]>*
 	}
 	regex value {
 	    \N*
@@ -38,12 +39,17 @@ multi method new (Str $header-text, Str :$crlf = "\r\n") {
 	token newline {
 	    $crlf
 	}
+	token junk {
+	    \N+
+	}
     }
 
     my $parsed = Headers.parse($header-text);
     my @entries = $parsed<entry>.list;
     my @headers;
     for @entries {
+	# TODO: store ~.<junk> somehow?
+	next if .<junk>;
 	my $name = $_<name>;
 	my $value = $_<value>;
 	$value = $value.Str;
@@ -175,3 +181,5 @@ method !fold (Str $line) {
 }
 method !default-fold-at { 78 }
 method !default-fold-indent { " " }
+
+# vim: ft=perl6 sw=4 ts=8 noexpandtab smarttab

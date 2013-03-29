@@ -5,7 +5,7 @@ use lib 'lib';
 
 use Email::Simple;
 
-plan 9;
+plan 12;
 
 my %headers = (
     badly-folded    => {
@@ -18,6 +18,10 @@ my %headers = (
         Received        => '(qmail 1679 invoked by uid 503); 13 Nov 2002 10:10:49 -0000',
         To              => 'austin-group-l@opengroup.org',
         Content-Type    => 'text/plain; charset=us-ascii',
+    },
+    junk-in-header  => {
+        Header-One      => 'steve biko',
+        Header-Two      => 'stir it up',
     },
 
 );
