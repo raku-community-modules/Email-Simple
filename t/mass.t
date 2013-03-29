@@ -5,7 +5,7 @@ use lib 'lib';
 
 use Email::Simple;
 
-plan 43;
+plan 37;
 
 my %headers = (
     badly-folded    => {
@@ -31,6 +31,11 @@ my %headers = (
                              ~ q[ smtp.paravolve.net with smtp (Exim 4.34) id 1BTp3v-0007sJ-Pj]
                              ~ q[ for jwb@paravolve.net; Fri, 28 May 2004 21:38:49 +0000],
     },
+    many-repeats    => {
+        Baz             => '0 0',
+        Foo             => '1 3 5 7 9 B D F H J L N P R T V X Y',
+        Bar             => '2 4 6 8 A C E G I K M O Q S U W Z',
+    },
 );
 
 for %headers.keys.sort -> $file {
@@ -39,7 +44,7 @@ for %headers.keys.sort -> $file {
    my %h := %headers{$file};
    my $header-str = $m.header-obj.Str;
    for %h.sort -> $p {
-       is $m.header($p.key), $p.value, "Header $p.key() in mail $file";
+       is ~$m.header($p.key).list, $p.value, "Header $p.key() in mail $file";
        ok defined($header-str.index($p.key)), "Header text for $file contains $p.key()"
            or diag("Header-string: $header-str.perl()");
    }
