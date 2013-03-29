@@ -34,7 +34,7 @@ multi method new (Str $header-text, Str :$crlf = "\r\n") {
 	}
 	regex value {
 	    \N*
-	    [<newline> \s+ \N+?]?
+	    [<newline> \s+ \N+?]*
 	}
 	token newline {
 	    $crlf
