@@ -157,7 +157,7 @@ method crlf {
     return $!crlf;
 }
 
-method !fold (Str $line) {
+method !fold (Str $line is copy) {
     my $limit = self!default-fold-at - 1;
     
     if $line.chars <= $limit {
