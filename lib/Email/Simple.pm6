@@ -26,6 +26,15 @@ grammar Message {
 
 multi method new (Str $text) {
     my $parsed = Message.parse($text);
+    unless $parsed {
+        # no header separator found, so it must be a header-only email
+        my $crlf = ~($text ~~ /\xa\xd|\xd\xa|\xa\xd/) || "\n",;
+        return self.bless(*,
+                body   => '',
+                header => Email::Simple::Header.new($text, :$crlf),
+                :$crlf,
+        );
+    }
     my $newlines = ~$parsed<header-separate>;
     my $crlf = $newlines.substr(0, ($newlines.chars / 2));
     my $headers = ~$parsed<headers>;
