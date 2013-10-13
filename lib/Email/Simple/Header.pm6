@@ -5,14 +5,14 @@ has @!headers;
 
 multi method new (Array $headers, Str :$crlf = "\r\n") {
     if $headers[0] ~~ Array {
-        self.bless(*, crlf => $crlf, headers => $headers);
+        self.bless(crlf => $crlf, headers => $headers);
     } else {
         my @folded-headers;
         loop (my $x=0;$x < +$headers;$x+=2) {
             @folded-headers.push([$headers[$x], $headers[$x+1]]);
         }
 
-        self.bless(*, crlf => $crlf, headers => @folded-headers);
+        self.bless(crlf => $crlf, headers => @folded-headers);
     }
 }
 
@@ -57,7 +57,7 @@ multi method new (Str $header-text, Str :$crlf = "\r\n") {
 	push(@headers, [~$name, $value]);
     }
 
-    self.bless(*, crlf => $crlf, headers => @headers);
+    self.bless(crlf => $crlf, headers => @headers);
 }
 
 submethod BUILD (:$!crlf, :@!headers) { }
@@ -79,7 +79,7 @@ class HeaderResponse is Positional {
     has @.values;
 
     method new(@values) {
-	self.bless(*, :@values);
+	self.bless(:@values);
     }
 
     method get_at($k) { @.values.get_at($k) }

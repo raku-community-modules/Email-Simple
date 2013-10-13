@@ -29,7 +29,7 @@ multi method new (Str $text) {
     unless $parsed {
         # no header separator found, so it must be a header-only email
         my $crlf = ~($text ~~ /\xa\xd|\xd\xa|\xa\xd/) || "\n",;
-        return self.bless(*,
+        return self.bless(
                 body   => '',
                 header => Email::Simple::Header.new($text, :$crlf),
                 :$crlf,
@@ -40,7 +40,7 @@ multi method new (Str $text) {
     my $headers = ~$parsed<headers>;
     $headers ~= $crlf;
     my $header-object = Email::Simple::Header.new($headers, crlf => $crlf);
-    self.bless(*, body => $parsed<body>, header => $header-object, crlf => $crlf);
+    self.bless(body => $parsed<body>, header => $header-object, crlf => $crlf);
 }
 
 multi method new (Array $header, Str $body) {
@@ -52,7 +52,7 @@ method create (Array :$header, Str :$body) {
     if !($header-object.header('Date')) {
         $header-object.header-set('Date', DateTime::Format::RFC2822.to-string(DateTime.new(now)));
     }
-    self.bless(*, body => $body, header => $header-object, crlf => "\r\n");
+    self.bless(body => $body, header => $header-object, crlf => "\r\n");
 }
 
 submethod BUILD (:$!body, :$!header, :$!crlf) { }
