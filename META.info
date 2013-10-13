@@ -2,6 +2,6 @@
     "name"	  : "Email::Simple",
     "version"	  : "*",
     "description" : "Simple email parsing module",
-    "depends"	  : ["DateTime::Utils"],
+    "depends"	  : ["DateTime::Format"],
     "source-url"  : "git://github.com/retupmoca/p6-Email-Simple.git"
 }

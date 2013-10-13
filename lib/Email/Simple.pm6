@@ -1,7 +1,7 @@
 class Email::Simple;
 
 use Email::Simple::Header;
-use DateTime::Utils;
+use DateTime::Format::RFC2822;
 
 has $!body;
 has $!header;
@@ -41,7 +41,7 @@ multi method new (Array $header, Str $body) {
 method create (Array :$header, Str :$body) {
     my $header-object = Email::Simple::Header.new($header, crlf => "\r\n");
     if !($header-object.header('Date')) {
-        $header-object.header-set('Date', rfc2822());
+        $header-object.header-set('Date', DateTime::Format::RFC2822.to-string(DateTime.new(now)));
     }
     self.bless(*, body => $body, header => $header-object, crlf => "\r\n");
 }
