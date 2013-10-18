@@ -40,7 +40,7 @@ multi method new (Str $text) {
     my $headers = ~$parsed<headers>;
     $headers ~= $crlf;
     my $header-object = Email::Simple::Header.new($headers, crlf => $crlf);
-    self.bless(body => $parsed<body>, header => $header-object, crlf => $crlf);
+    self.bless(body => ~$parsed<body>, header => $header-object, crlf => $crlf);
 }
 
 multi method new (Array $header, Str $body) {
