@@ -39,7 +39,7 @@ multi method new (Str $text) {
     my $crlf = $newlines.substr(0, ($newlines.chars / 2));
     my $headers = ~$parsed<headers>;
     $headers ~= $crlf;
-    my $header-object = Email::Simple::Header.new($headers, crlf => $crlf);
+    my $header-object = header-class().new($headers, crlf => $crlf);
     self.bless(body => ~$parsed<body>, header => $header-object, crlf => $crlf);
 }
 
@@ -48,7 +48,7 @@ multi method new (Array $header, Str $body) {
 }
 
 method create (Array :$header, Str :$body) {
-    my $header-object = Email::Simple::Header.new($header, crlf => "\r\n");
+    my $header-object = header-class().new($header, crlf => "\r\n");
     if !($header-object.header('Date')) {
         $header-object.header-set('Date', DateTime::Format::RFC2822.to-string(DateTime.new(now)));
     }
@@ -64,6 +64,8 @@ method header-obj {
 method header-obj-set ($obj) {
     $!header = $obj;
 }
+
+sub header-class { return Email::Simple::Header; }
 
 method header ($name) { $!header.header($name); }
 method header-set ($name, *@lines) { $!header.header-set($name, |@lines); }
