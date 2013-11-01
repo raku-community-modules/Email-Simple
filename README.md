@@ -31,44 +31,44 @@ This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just b
     will act like the first value of the list. (So you can call
     `say $eml.header('Subject')` and it will work correctly)
 
-### `header-set($name, *@lines)`
+ -  `header-set($name, *@lines)`
 
-Sets the header `$name`. Adds one `$name` header for each additional argument
-passed.
+    Sets the header `$name`. Adds one `$name` header for each additional argument
+    passed.
 
-### `header-names()`
+ -  `header-names()`
 
-Returns a list of header names in the email.
+    Returns a list of header names in the email.
 
-### `headers()`
+ -  `headers()`
 
-Alias of `header-names()`
+    Alias of `header-names()`
 
-### `header-pairs()`
+ -  `header-pairs()`
 
-Returns the full header data for an email.
+    Returns the full header data for an email.
 
-    $eml.header-pairs(); # --> [['Subject', 'test'], ['From', 'me@example.com']]
+        $eml.header-pairs(); # --> [['Subject', 'test'], ['From', 'me@example.com']]
 
-### `body()`
+ -  `body()`
 
-Returns the mail body. Note that this module does not try to do any decoding, it
-just returns the body as-is.
+    Returns the mail body. Note that this module does not try to do any decoding, it
+    just returns the body as-is.
 
-### `body-set($text)`
+ -  `body-set($text)`
 
-Sets the mail body to `$text`. Note that this module does not try to properly
-encode the body.
+    Sets the mail body to `$text`. Note that this module does not try to properly
+    encode the body.
 
-### `as-string()`, `Str()`
+ -  `as-string()`, `Str()`
 
-Returns the full raw email, suitable for piping into sendmail.
+    Returns the full raw email, suitable for piping into sendmail.
 
-### `crlf()`
+ -  `crlf()`
 
-### `header-obj()`
+ -  `header-obj()`
 
-### `header-obj-set($obj)`
+ -  `header-obj-set($obj)`
 
 ## License ##
 
