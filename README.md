@@ -21,15 +21,15 @@ This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just b
 
  -  `new(Array $header, Str $body, :$header-class = Email::Simple::Header)`
 
-Alias of `.create` with positional arguments.
+    Alias of `.create` with positional arguments.
 
-#### `create(Array :$header, Str :$body, :$header-class = Email::Simple::Header)`
+ -  `create(Array :$header, Str :$body, :$header-class = Email::Simple::Header)`
 
-#### `header($name)`
+ -  `header($name)`
 
-Returns a list of email headers with the name `$name`. If used in string context,
-will act like the first value of the list. (So you can call
-`say $eml.header('Subject')` and it will work correctly)
+    Returns a list of email headers with the name `$name`. If used in string context,
+    will act like the first value of the list. (So you can call
+    `say $eml.header('Subject')` and it will work correctly)
 
 ### `header-set($name, *@lines)`
 
