@@ -2,8 +2,6 @@
 
 This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just because I can)
 
-It will currently parse some simple emails, at least, although there are unimplemented functions.
-
 ## Example Usage ##
 
     use Email::Simple;
