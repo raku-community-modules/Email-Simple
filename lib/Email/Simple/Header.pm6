@@ -88,7 +88,7 @@ method header-pairs {
     return @!headers;
 }
 
-method header (Str $name, Bool :$multi) {
+method header (Str $name, :$multi) {
     my @values = gather {
 	for @!headers {
 	    if lc($_[0]) eq lc($name) {
