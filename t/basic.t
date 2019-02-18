@@ -9,7 +9,7 @@ my $mail-text = slurp './t/test-mails/josey-nofold';
 
 my $mail = Email::Simple.new($mail-text);
 
-plan 15;
+plan 16;
 
 my $old-from;
 is $old-from = $mail.header('From'), 'Andrew Josey <ajosey@rdg.opengroup.org>', "We can get a header";
@@ -52,3 +52,9 @@ $mail = Email::Simple.create(header => [:To<mail@example.com>,
                                         :Subject<test>],
                              body => 'This is a test.');
 is $mail.header("To"), "mail\@example.com", 'test pair headers in create';
+
+$mail = Email::Simple.create(header => {:To<mail2@example.com>,
+                                        :From<me@example.com>,
+                                        :Subject<test>},
+                             body => 'This is a test.');
+is $mail.header("To"), "mail2\@example.com", 'test hash headers in create';
