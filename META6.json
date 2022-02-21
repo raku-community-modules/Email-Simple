@@ -1,14 +1,25 @@
 {
-    "perl"    : "6.*",
-    "name"	  : "Email::Simple",
-    "license" : "CC0-1.0",
-    "version"	  : "2.1.0",
-    "author"      : "github:retupmoca",
-    "description" : "Simple email parsing module",
-    "depends"	  : ["DateTime::Format"],
-    "provides"    : {
-        "Email::Simple"         : "lib/Email/Simple.pm6",
-        "Email::Simple::Header" : "lib/Email/Simple/Header.pm6"
-    },
-    "source-url"  : "git://github.com/retupmoca/p6-Email-Simple.git"
+  "auth": "zef:raku-community-modules",
+  "author": "Andrew Egeler",
+  "build-depends": [
+  ],
+  "depends": [
+    "DateTime::Format"
+  ],
+  "description": "Simple email parsing module",
+  "license": "CC0-1.0",
+  "name": "Email::Simple",
+  "perl": "6.*",
+  "provides": {
+    "Email::Simple": "lib/Email/Simple.rakumod",
+    "Email::Simple::Header": "lib/Email/Simple/Header.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "git://github.com/retupmoca/p6-Email-Simple.git",
+  "tags": [ "EMAIL", "MAIL"
+  ],
+  "test-depends": [
+  ],
+  "version": "2.1.1"
 }

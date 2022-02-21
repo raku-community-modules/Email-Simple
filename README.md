@@ -1,6 +1,8 @@
+[![Actions Status](https://github.com/raku-community-modules/Email-Simple/workflows/test/badge.svg)](https://github.com/raku-community-modules/Email-Simple/actions)
+
 # Email::Simple #
 
-This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just because I can)
+This is my attempt at porting Email::Simple from Perl 5 to Raku (mostly just because I can)
 
 ## Example Usage ##
 
@@ -70,6 +72,18 @@ This is my attempt at porting Email::Simple from perl 5 to perl 6 (mostly just b
 
  -  `header-obj-set($obj)`
 
-## License ##
+AUTHOR
+=======
+
+Andrew Egeler
+
+Source can be located at: https://github.com/raku-community-modules/Email-Simple . Comments and Pull Requests are welcome.
+
+COPYRIGHT AND LICENSE
+=====================
+
+Copyright 2012 - 2018 Andrew Egeler
+
+Copyright 2019 - 2022 Raku Community
 
 All files in this repository are licensed under the terms of Create Commons License; for details please see the LICENSE file
