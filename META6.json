@@ -17,7 +17,9 @@
   "resources": [
   ],
   "source-url": "git://github.com/retupmoca/p6-Email-Simple.git",
-  "tags": [ "EMAIL", "MAIL"
+  "tags": [
+    "EMAIL",
+    "MAIL"
   ],
   "test-depends": [
   ],
