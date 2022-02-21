@@ -43,11 +43,11 @@ multi method new (Str $text, :$header-class = Email::Simple::Header) {
     self.bless(body => ~$parsed<body>, header => $header-object, crlf => $crlf);
 }
 
-multi method new (Array $header, Str $body, :$header-class = Email::Simple::Header) {
+multi method new (Array() $header, Str $body, :$header-class = Email::Simple::Header) {
     self.create(header => $header, body => $body, :$header-class);
 }
 
-method create (Array :$header, Str :$body, :$header-class = Email::Simple::Header) {
+method create (Array() :$header, Str :$body, :$header-class = Email::Simple::Header) {
     my $header-object = $header-class.new($header, crlf => "\r\n");
     if !($header-object.header('Date')) {
         $header-object.header-set('Date', DateTime::Format::RFC2822.to-string(DateTime.now));
