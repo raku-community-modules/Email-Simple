@@ -16,12 +16,12 @@
   },
   "resources": [
   ],
-  "source-url": "git://github.com/retupmoca/p6-Email-Simple.git",
+  "source-url": "https://github.com/raku-community-modules/Email-Simple.git",
   "tags": [
     "EMAIL",
     "MAIL"
   ],
   "test-depends": [
   ],
-  "version": "2.1.1"
+  "version": "2.1.2"
 }

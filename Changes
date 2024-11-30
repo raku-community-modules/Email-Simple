@@ -2,5 +2,9 @@ Revision history for Email::Simple
 
 {{$NEXT}}
 
+2.1.2  2024-11-30T17:51:11+01:00
+    - Add CI badge for each OS
+    - Fix source-url
+
 2.1.1  2022-02-21T19:17:02+01:00
     - First version in the zef ecosystem
