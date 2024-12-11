@@ -1,7 +1,4 @@
-use v6;
 use Test;
-
-use lib 'lib';
 
 use Email::Simple;
 
@@ -58,3 +55,5 @@ $mail = Email::Simple.create(header => {:To<mail2@example.com>,
                                         :Subject<test>},
                              body => 'This is a test.');
 is $mail.header("To"), "mail2\@example.com", 'test hash headers in create';
+
+# vim: expandtab shiftwidth=4

@@ -1,7 +1,7 @@
 use Email::Simple::Header;
 use DateTime::Format::RFC2822;
 
-unit class Email::Simple:ver<2.1.2>:auth<zef:raku-community-modules>;
+unit class Email::Simple;
 
 has $!body;
 has $!header;

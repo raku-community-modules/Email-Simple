@@ -1,7 +1,4 @@
-use v6;
 use Test;
-
-use lib 'lib';
 
 use Email::Simple;
 
@@ -49,3 +46,5 @@ for %headers.keys.sort -> $file {
            or diag("Header-string: $header-str.perl()");
    }
 }
+
+# vim: expandtab shiftwidth=4
