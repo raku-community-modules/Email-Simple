@@ -1,0 +1,107 @@
+=begin pod
+
+=head1 NAME
+
+Email::Simple - Simple email parsing module
+
+=head1 SYNOPSIS
+
+=begin code :lang<raku>
+
+use Email::Simple;
+
+my $eml = Email::Simple.new($raw-mail-text);
+say $eml.body;
+
+my $new = Email::Simple.create(
+  header => [
+    ['To', 'mail@example.com'],
+    ['From', 'me@example.com'],
+    ['Subject', 'test']
+  ],
+  body => 'This is a test.',
+);
+say ~$new;
+
+=end code
+
+=head1 DESCRIPTION
+
+This is my attempt at porting Email::Simple from Perl to Raku
+(mostly just because I can)
+
+=head1 METHODS
+
+=head2 new(Str $text, :$header-class = Email::Simple::Header)
+
+=head2 new(Array $header, Str $body, :$header-class = Email::Simple::Header)
+
+Alias of C<.create> with positional arguments.
+
+=head2 create(Array :$header, Str :$body, :$header-class = Email::Simple::Header)
+
+=head2 header($name, :$multi)
+
+Returns the email header with the name C<$name>. If C<:$multi> is not
+passed, then this will return the first header found. If C<:$multi> is
+set, then this will return a list of all headers with the name C<$name>
+(note the change from v1.0!)
+
+=head2 header-set($name, *@lines)
+
+Sets the header C<$name>. Adds one C<$name> header for each additional
+argument passed.
+
+=head2 header-names
+
+Returns a list of header names in the email.
+
+=head2 headers
+
+Alias of C<header-names>
+
+=head2 header-pairs
+
+Returns the full header data for an email.
+
+=begin code :lang<raku>
+
+$eml.header-pairs(); # --> [['Subject', 'test'], ['From', 'me@example.com']]
+
+=end code
+
+=head2 body
+
+Returns the mail body. Note that this module does not try to do any
+decoding, it just returns the body as-is.
+
+=head2 body-set($text)
+
+Sets the mail body to C<$text>. Note that this module does not try
+to properly encode the body.
+
+=head2 as-string, Str>
+
+Returns the full raw email, suitable for piping into sendmail.
+
+=head2 crlf
+
+=head2 header-obj
+
+=head2 header-obj-set($obj)
+
+=head1 AUTHOR
+
+Andrew Egeler
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2012 - 2018 Andrew Egeler
+
+Copyright 2019 - 2022 Raku Community
+
+All files in this repository are licensed under the terms of Create Commons License; for details please see the LICENSE file
+
+=end pod
+
+# vim: expandtab shiftwidth=4

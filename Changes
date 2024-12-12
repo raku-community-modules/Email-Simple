@@ -2,6 +2,10 @@ Revision history for Email::Simple
 
 {{$NEXT}}
 
+2.1.3  2024-12-12T11:44:48+01:00
+    - Migrate readme to pod
+    - Fix showing of CI badges
+
 2.1.2  2024-11-30T17:51:11+01:00
     - Add CI badge for each OS
     - Fix source-url
