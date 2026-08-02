@@ -1,13 +1,14 @@
 unit class Email::Simple::Header;
 
-has $!crlf;
-has @!headers;
+has $.crlf;
+has @.headers;
+has %!headers;
 
 multi method new(Array $headers, Str :$crlf = "\x0d\x0a") {
     if $headers[0] ~~ Array {
         self.bless: :$crlf, :$headers
     }
-    elsif $headers[0] ~~ Pair {
+    elsif $headers[0] ~~ Pair {  # UNCOVERABLE
         self.bless: :$crlf, headers => $headers.map(*.kv)
     }
     else {
@@ -25,7 +26,7 @@ multi method new(Str $header-text, Str :$crlf = "\x0d\x0a") {
     #because we need $crlf
     # (and I don't know if it's possible to pass parameters
     #  through Headers.parse())
-    grammar Headers {
+    my grammar Headers {
         regex TOP {
             <entry>+
         }
@@ -52,29 +53,26 @@ multi method new(Str $header-text, Str :$crlf = "\x0d\x0a") {
     my @entries = $parsed<entry>.list;
     my @headers;
     for @entries {
-        # TODO: store ~.<junk> somehow?
-        next if .<junk>;
-        my $name = $_<name>;
-        my $value = $_<value>;
-        $value = $value.Str;
-        $value ~~ s:g/\s* $crlf \s*/ /;
-        push(@headers, [~$name, $value]);
+        @headers.push([
+          .<name>.Str,
+          .<value>.subst(/ \s* $crlf \s* /, ' ', :global)
+        ]) unless .<junk>;
     }
 
     self.bless: :$crlf, :@headers
 }
 
-submethod BUILD(:$!crlf, :@!headers) { }
+submethod TWEAK(--> Nil) {
+    # create easier lookup of headers
+    my %headers is default(Nil);
+    %headers.push(.[0].lc => .[1]) for @!headers;
+    %!headers := %headers;
+}
 
 method as-string() {
-    my $header-str;
-
-    for @!headers {
-        my $header = $_[0] ~ ': ' ~ $_[1];
-        $header-str ~= self!fold($header);
-    }
-
-    $header-str
+    @!headers.map({
+        self!fold("$_[0]: $_[1]")
+    }).join
 }
 method Str() { self.as-string }
 
@@ -83,56 +81,56 @@ method header-names() { @!headers.map: *.[0] }
 method header-pairs() { @!headers }
 
 method header(Str $name, :$multi) {
-    my @values = gather {
-        for @!headers {
-            if lc($_[0]) eq lc($name) {
-            take $_[1];
-            }
-        }
-    }
-
-    +@values
-      ?? $multi
-        ?? @values
-        !! @values[0]
-      !! Nil
+    $multi
+      ?? %!headers{$name.lc}.List
+      !! %!headers{$name.lc}.head
 }
 
 method header-set($field, *@values) {
+    return Nil unless @values;
+
+    my $field-lc := $field.lc;
+
     my @indices;
     my $x = 0;
     for @!headers {
-        if lc($_[0]) eq lc($field) {
+        if $_[0].lc eq $field-lc {
             push(@indices, $x);
         }
         $x++;
     }
 
-    if +@indices > +@values {
-        my $overage = +@indices - +@values;
+    if @indices > @values {
+        my $overage = @indices - @values;
         for 1..$overage {
             @!headers.splice(@indices[*-1],1);
             @indices.pop();
         }
     }
-    elsif +@values > +@indices {
-        my $underage = +@values - +@indices;
+    elsif @values > @indices {
+        my $underage = @values - @indices;
         for 1..$underage {
             @!headers.push([$field, '']);
-            @indices.push(+@!headers-1);
+            @indices.push(@!headers - 1);
         }
     }
 
-    for 0..(+@indices - 1) {
+    for ^@indices {
         @!headers[@indices[$_]] = [$field, @values[$_]];
     }
 
-    +@values
-      ?? @values
-      !! Nil
-}
+    # do the same but in the hash
+    if %!headers{$field-lc} -> $current {
+        $current ~~ Array
+          ?? $current.prepend(@values)
+          !! (%!headers{$field-lc} := [|@values,$current]);
+    }
+    else {
+        %!headers.append($field-lc, @values);
+    }
 
-method crlf() { $!crlf }
+    @values
+}
 
 method !fold(Str:D $line is copy) {
     my $limit = self!default-fold-at - 1;

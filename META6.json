@@ -1,22 +1,28 @@
 {
   "auth": "zef:raku-community-modules",
-  "author": "Andrew Egeler",
+  "authors": [
+    "Andrew Egeler"
+  ],
   "build-depends": [
   ],
   "depends": [
-    "DateTime::Format"
   ],
   "description": "Simple email parsing module",
   "license": "CC0-1.0",
   "name": "Email::Simple",
-  "perl": "6.*",
   "provides": {
     "Email::Simple": "lib/Email/Simple.rakumod",
     "Email::Simple::Header": "lib/Email/Simple/Header.rakumod"
   },
+  "raku": "6.*",
   "resources": [
   ],
   "source-url": "https://github.com/raku-community-modules/Email-Simple.git",
+  "support": {
+    "bugtracker": "https://github.com/raku-community-modules/Email-Simple/issues",
+    "email": "community@raku.org",
+    "source": "https://github.com/raku-community-modules/Email-Simple.git"
+  },
   "tags": [
     "EMAIL",
     "MAIL"

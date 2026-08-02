@@ -1,6 +1,12 @@
 Revision history for Email::Simple
 
 {{$NEXT}}
+    - Remove dependency on DateTime::Format, is only needed for
+      creating RFC2822 dates, and that is simple enough for local
+      code
+    - Streamlined code in general
+    - Added preliminary coverage testing
+    - Updated copyright year
 
 2.1.3  2024-12-12T11:44:48+01:00
     - Migrate readme to pod

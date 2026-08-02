@@ -1,0 +1,6 @@
+use Test::Coverage;
+
+todo "needs more Email::Simple::Header tests";
+must-be-complete;
+
+# vim: expandtab shiftwidth=4
