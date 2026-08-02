@@ -4,7 +4,7 @@
   "specVersion": "1.6",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-08-03T12:36:09+00:00",
+    "timestamp": "2026-08-02T16:29:47+00:00",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -19,7 +19,7 @@
     "component": {
       "type": "library",
       "mime-type": "text/plain",
-      "bom-ref": "pkg:raku/zef:raku-community-modules/Email::Simple@2.1.3",
+      "bom-ref": "pkg:raku/zef:raku-community-modules/Email::Simple@2.1.4",
       "authors": [
         {
           "bom-ref": "AndrewEgeler",
@@ -29,7 +29,7 @@
       "publisher": "zef",
       "group": "zef:raku-community-modules",
       "name": "Email::Simple",
-      "version": "2.1.3",
+      "version": "2.1.4",
       "description": "Simple email parsing module",
       "scope": "required",
       "licenses": [
@@ -41,27 +41,31 @@
           }
         }
       ],
-      "purl": "pkg:raku/zef:raku-community-modules/Email::Simple@2.1.3",
+      "purl": "pkg:raku/zef:raku-community-modules/Email::Simple@2.1.4",
       "externalReferences": [
-        {
-          "url": "https://raku.land/zef:raku-community-modules/Email::Simple?v=2.1.3",
-          "type": "documentation"
-        },
         {
           "url": "https://github.com/raku-community-modules/Email-Simple",
           "type": "distribution"
+        },
+        {
+          "url": "https://raku.land/zef:raku-community-modules/Email::Simple?v=2.1.4",
+          "type": "documentation"
         },
         {
           "url": "https://github.com/raku-community-modules/Email-Simple/issues",
           "type": "issue-tracker"
         },
         {
-          "url": "https://github.com/raku-community-modules/Email-Simple/archive/refs/tags/2.1.3.zip",
+          "url": "https://spdx.org/licenses/CC0-1.0.json",
+          "type": "license"
+        },
+        {
+          "url": "https://github.com/raku-community-modules/Email-Simple/archive/refs/tags/2.1.4.zip",
           "type": "source-distribution"
         },
         {
-          "url": "https://spdx.org/licenses/CC0-1.0.json",
-          "type": "license"
+          "url": "mailto:community@raku.org",
+          "type": "support"
         }
       ],
       "tags": [
@@ -83,7 +87,7 @@
         {
           "type": "library",
           "mime-type": "text/plain",
-          "bom-ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.6",
+          "bom-ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.13",
           "authors": [
             {
               "bom-ref": "ElizabethMattijsen",
@@ -93,7 +97,7 @@
           "publisher": "zef",
           "group": "zef:lizmat",
           "name": "SBOM::Raku",
-          "version": "0.0.6",
+          "version": "0.0.13",
           "description": "Raku specific SBOM functionality",
           "scope": "required",
           "licenses": [
@@ -105,31 +109,31 @@
               }
             }
           ],
-          "purl": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.6",
+          "purl": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.13",
           "externalReferences": [
             {
-              "url": "https://raku.land/zef:lizmat/SBOM::Raku?v=0.0.6",
-              "type": "documentation"
+              "url": "https://github.com/lizmat/SBOM-Raku",
+              "type": "distribution"
             },
             {
-              "url": "mailto:liz@raku.rocks",
-              "type": "support"
+              "url": "https://raku.land/zef:lizmat/SBOM::Raku?v=0.0.13",
+              "type": "documentation"
             },
             {
               "url": "https://github.com/lizmat/SBOM-Raku/issues",
               "type": "issue-tracker"
             },
             {
-              "url": "https://github.com/lizmat/SBOM-Raku",
-              "type": "distribution"
+              "url": "https://spdx.org/licenses/Artistic-2.0.json",
+              "type": "license"
             },
             {
-              "url": "https://github.com/lizmat/SBOM-Raku/archive/refs/tags/0.0.6.zip",
+              "url": "https://github.com/lizmat/SBOM-Raku/archive/refs/tags/0.0.13.zip",
               "type": "source-distribution"
             },
             {
-              "url": "https://spdx.org/licenses/Artistic-2.0.json",
-              "type": "license"
+              "url": "mailto:liz@raku.rocks",
+              "type": "support"
             }
           ],
           "tags": [
@@ -141,26 +145,134 @@
       ]
     }
   },
-  "externalReferences": [
+  "components": [
     {
-      "url": "https://raku.land/zef:raku-community-modules/Email::Simple?v=2.1.3",
-      "type": "documentation"
+      "type": "platform",
+      "bom-ref": "Rakudo",
+      "authors": [
+        {
+          "bom-ref": "RakudoCoreDevelopers",
+          "name": "Rakudo Core Developers"
+        }
+      ],
+      "publisher": "Rakudo Core Developers",
+      "group": "Rakudo Core Developers",
+      "name": "Rakudo",
+      "version": "2026.07-28-g003653957",
+      "description": "The Rakudo™ Compiler implementing the Raku® Programming Language",
+      "scope": "required",
+      "licenses": [
+        {
+          "license": {
+            "id": "Artistic-2.0",
+            "acknowledgement": "declared",
+            "url": "https://spdx.org/licenses/Artistic-2.0.json"
+          }
+        }
+      ],
+      "copyright": "© 2006 - 2026 Yet Another Society",
+      "externalReferences": [
+        {
+          "url": "https://github.com/rakudo/rakudo",
+          "type": "distribution"
+        },
+        {
+          "url": "https://github.com/rakudo/rakudo/issues",
+          "type": "issue-tracker"
+        },
+        {
+          "url": "https://github.com/rakudo/rakudo/archive/003653957.zip",
+          "type": "source-distribution"
+        },
+        {
+          "url": "irc://libera.chat/raku",
+          "type": "chat"
+        }
+      ]
     },
+    {
+      "type": "platform",
+      "bom-ref": "moar",
+      "authors": [
+        {
+          "bom-ref": "TheMoarVMTeam",
+          "name": "The MoarVM Team"
+        }
+      ],
+      "publisher": "The MoarVM Team",
+      "group": "The MoarVM Team",
+      "name": "Moar",
+      "version": "2026.07-4-gd0d4c1d29",
+      "description": "Short for \"Metamodel On A Runtime\", MoarVM is a modern virtual machine built for the Rakudo compiler and the NQP Compiler Toolchain.",
+      "scope": "required",
+      "licenses": [
+        {
+          "license": {
+            "id": "Artistic-2.0",
+            "acknowledgement": "declared",
+            "url": "https://spdx.org/licenses/Artistic-2.0.json"
+          }
+        }
+      ],
+      "copyright": "© 2012 - 2026 Jonathan Worthington",
+      "externalReferences": [
+        {
+          "url": "https://github.com/MoarVM/MoarVM",
+          "type": "distribution"
+        },
+        {
+          "url": "https://github.com/MoarVM/MoarVM/issues",
+          "type": "issue-tracker"
+        },
+        {
+          "url": "irc://libera.chat/moarvm",
+          "type": "chat"
+        },
+        {
+          "url": "https://github.com/MoarVM/MoarVM.git/archive/refs/tags/d0d4c1d29.zip",
+          "type": "source-distribution"
+        }
+      ]
+    }
+  ],
+  "externalReferences": [
     {
       "url": "https://github.com/raku-community-modules/Email-Simple",
       "type": "distribution"
+    },
+    {
+      "url": "https://raku.land/zef:raku-community-modules/Email::Simple?v=2.1.4",
+      "type": "documentation"
     },
     {
       "url": "https://github.com/raku-community-modules/Email-Simple/issues",
       "type": "issue-tracker"
     },
     {
-      "url": "https://github.com/raku-community-modules/Email-Simple/archive/refs/tags/2.1.3.zip",
+      "url": "https://spdx.org/licenses/CC0-1.0.json",
+      "type": "license"
+    },
+    {
+      "url": "https://github.com/raku-community-modules/Email-Simple/archive/refs/tags/2.1.4.zip",
       "type": "source-distribution"
     },
     {
-      "url": "https://spdx.org/licenses/CC0-1.0.json",
-      "type": "license"
+      "url": "mailto:community@raku.org",
+      "type": "support"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "Rakudo",
+      "dependsOn": [
+        "moar"
+      ]
+    },
+    {
+      "ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.13",
+      "dependsOn": [
+        "Rakudo"
+      ]
     }
   ]
 }

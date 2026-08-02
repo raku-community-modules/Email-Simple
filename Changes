@@ -1,6 +1,8 @@
 Revision history for Email::Simple
 
 {{$NEXT}}
+
+2.1.4  2026-08-02T18:29:12+02:00
     - Remove dependency on DateTime::Format, is only needed for
       creating RFC2822 dates, and that is simple enough for local
       code
